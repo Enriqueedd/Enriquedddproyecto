@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubstep - Explorando Música Electrónica</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #0a0a0a;
+            --secondary-color: #1a1a1a;
+            --accent-color: #00ff00;
+            --neon-accent: #ff00ff;
+            --text-color: #e0e0e0;
+            --dark-bg: #050505;
+            --card-bg: #121212;
+            --border-color: #333333;
+            --animation-duration: 5s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header estilo Dubstep */
+        .dubstep-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .dubstep-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px var(--accent-color), 0 0 30px var(--neon-accent);
+            font-weight: 700;
+        }
+
+        .dubstep-header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .dubstep-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1600x800/?dubstep,rave,bass') center/cover;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        /* Efecto de distorsión */
+        .distortion {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(0,255,0,0.1) 50%, transparent 51%),
+                linear-gradient(transparent 49%, rgba(0,255,0,0.1) 50%, transparent 51%);
+            background-size: 3px 3px;
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
+            animation: distort 0.1s infinite alternate;
+        }
+
+        @keyframes distort {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.01); }
+        }
+
+        /* Visualizador de audio dubstep */
+        .dubstep-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 120px;
+            gap: 3px;
+            margin: 2rem auto 0;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dubstep-bar {
+            width: 10px;
+            background: linear-gradient(to top, var(--accent-color), var(--neon-accent));
+            border-radius: 5px;
+            animation: dubstep-equalizer 0.5s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--accent-color);
+            animation-delay: calc(var(--i) * 0.05s);
+        }
+
+        @keyframes dubstep-equalizer {
+            0%, 40%, 80% { height: 10px; opacity: 0.7; }
+            20%, 60%, 100% { height: 100px; opacity: 1; }
+        }
+
+        /* Nav estilo Dubstep */
+        .dubstep-nav {
+            background-color: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dubstep-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .dubstep-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.7rem 1.8rem;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            background: rgba(10,10,10,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dubstep-nav a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            transition: 0.5s;
+        }
+
+        .dubstep-nav a:hover {
+            color: var(--neon-accent);
+            border-color: var(--neon-accent);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .dubstep-nav a:hover::before {
+            left: 100%;
+        }
+
+        /* Main content estilo Dubstep */
+        .dubstep-main {
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .dubstep-section {
+            margin-bottom: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 0;
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dubstep-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-color), var(--neon-accent));
+        }
+
+        .dubstep-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .dubstep-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dubstep-card {
+            background: var(--card-bg);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .dubstep-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 255, 0, 0.3);
+            border-color: var(--neon-accent);
+        }
+
+        .dubstep-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .dubstep-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(60%) contrast(120%) brightness(0.7);
+            transition: filter 0.4s ease;
+        }
+
+        .dubstep-card:hover img {
+            filter: grayscale(30%) contrast(110%) brightness(0.9);
+        }
+
+        .dubstep-card-content {
+            padding: 1.8rem;
+        }
+
+        .dubstep-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dubstep-card p {
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Video container */
+        .dubstep-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .dubstep-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer estilo Dubstep */
+        .dubstep-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 5rem;
+            position: relative;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .dubstep-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-accent), transparent);
+        }
+
+        .dubstep-footer p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .dubstep-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .dubstep-social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .dubstep-social-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-accent);
+            transition: width 0.3s ease;
+        }
+
+        .dubstep-social-links a:hover {
+            color: var(--neon-accent);
+            transform: translateY(-5px);
+            text-shadow: 0 0 15px var(--neon-accent);
+        }
+
+        .dubstep-social-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dubstep-animate {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+
+        /* Personal info estilo Dubstep */
+        .dubstep-personal-info {
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .dubstep-personal-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .dubstep-personal-info h2 {
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* Color animation estilo dubstep */
+        .dubstep-color-section {
+            background: linear-gradient(-45deg, #0a0a0a, #00ff00, #1a1a1a, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradient var(--animation-duration) ease infinite;
+            padding: 4rem 2rem;
+            color: white;
+            text-align: center;
+            margin: 4rem 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Timeline de la historia del Dubstep */
+        .dubstep-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .dubstep-timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent-color), var(--neon-accent));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .dubstep-timeline-item {
+            padding: 15px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .dubstep-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--card-bg);
+            border: 4px solid var(--neon-accent);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--neon-accent);
+        }
+
+        .dubstep-left {
+            left: 0;
+        }
+
+        .dubstep-right {
+            left: 50%;
+        }
+
+        .dubstep-left::after {
+            right: -16px;
+        }
+
+        .dubstep-right::after {
+            left: -16px;
+        }
+
+        .dubstep-timeline-content {
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .dubstep-timeline-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .dubstep-timeline-content h3 {
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dubstep-nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .dubstep-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .dubstep-header p {
+                font-size: 1.2rem;
+            }
+
+            .dubstep-timeline::after {
+                left: 31px;
+            }
+
+            .dubstep-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .dubstep-timeline-item::after {
+                left: 21px;
+            }
+
+            .dubstep-left::after, .dubstep-right::after {
+                left: 21px;
+            }
+
+            .dubstep-right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dubstep-header h1 {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+
+            .dubstep-header p {
+                font-size: 1rem;
+            }
+
+            .dubstep-nav a {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .dubstep-section {
+                padding: 1.8rem;
+            }
+
+            .dubstep-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .dubstep-card-content {
+                padding: 1.4rem;
+            }
+        }
+
+        /* Efecto de glitch en el título */
+        .glitch-effect {
+            position: relative;
+        }
+
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-effect::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+
+        .glitch-effect::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Efecto de distorsión en las imágenes */
+        .distort-img {
+            transition: all 0.3s ease;
+        }
+
+        .dubstep-card:hover .distort-img {
+            animation: distort-img 0.5s infinite alternate;
+        }
+
+        @keyframes distort-img {
+            0% { transform: scale(1) skew(0deg); }
+            100% { transform: scale(1.02) skew(1deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header estilo Dubstep -->
+    <header class="dubstep-header">
+        <div class="distortion"></div>
+        <div class="container">
+            <h1 class="dubstep-animate glitch-effect" data-text="DUBSTEP">DUBSTEP</h1>
+            <p class="dubstep-animate delay-1">El sonido del bajo que sacude el alma y redefine la música electrónica</p>
+            <div class="dubstep-visualizer">
+                <div class="dubstep-bar" style="--i:0"></div>
+                <div class="dubstep-bar" style="--i:1"></div>
+                <div class="dubstep-bar" style="--i:2"></div>
+                <div class="dubstep-bar" style="--i:3"></div>
+                <div class="dubstep-bar" style="--i:4"></div>
+                <div class="dubstep-bar" style="--i:5"></div>
+                <div class="dubstep-bar" style="--i:6"></div>
+                <div class="dubstep-bar" style="--i:7"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav estilo Dubstep -->
+    <nav class="dubstep-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#historia"><i class="fas fa-history"></i> Historia</a></li>
+                <li><a href="#pioneros"><i class="fas fa-star"></i> Pioneros</a></li>
+                <li><a href="#subgeneros"><i class="fas fa-cogs"></i> Subgéneros</a></li>
+                <li><a href="#video"><i class="fas fa-play"></i> Documental</a></li>
+                <li><a href="house.html"><i class="fas fa-music"></i> House</a></li>
+                <li><a href="techno.html"><i class="fas fa-robot"></i> Techno</a></li>
+                <li><a href="trance.html"><i class="fas fa-cloud"></i> Trance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="dubstep-main">
+        <div class="container">
+            <!-- Sección de animación de colores -->
+            <section class="dubstep-color-section dubstep-animate delay-2">
+                <h2>SIENTE EL PODER DEL BASS</h2>
+                <p>DONDE LOS RITMOS ROMPEN LAS REGLAS</p>
+            </section>
+
+            <!-- Historia -->
+            <section id="historia" class="dubstep-section dubstep-animate">
+                <h2>Historia del Dubstep</h2>
+                <p>El dubstep es un género de música electrónica que surgió a finales de los 90 en el sur de Londres, evolucionando del UK garage y el dub reggae. Caracterizado por sus ritmos sincopados, líneas de bajo prominentes y patrones rítmicos complejos, el dubstep ganó popularidad mundial a mediados de los 2000 con artistas como Skrillex llevando el género a nuevas audiencias.</p>
+                
+                <div class="dubstep-timeline">
+                    <div class="dubstep-timeline-item dubstep-left">
+                        <div class="dubstep-timeline-content dubstep-animate">
+                            <h3>1998-2002: Los Orígenes</h3>
+                            <p>Nace en los clubes de Londres como una evolución oscura del 2-step garage, con influencias del dub jamaiquino y el drum and bass. Sellos como Tempa y artistas como El-B y Horsepower Productions definen el sonido inicial.</p>
+                        </div>
+                    </div>
+                    <div class="dubstep-timeline-item dubstep-right">
+                        <div class="dubstep-timeline-content dubstep-animate delay-1">
+                            <h3>2003-2007: La Escena Underground</h3>
+                            <p>El género se consolida con DJs como Benga, Skream y Digital Mystikz. El programa de radio de John Peel en la BBC ayuda a difundir el sonido. Nace el club FWD>> en Londres como epicentro de la escena.</p>
+                        </div>
+                    </div>
+                    <div class="dubstep-timeline-item dubstep-left">
+                        <div class="dubstep-timeline-content dubstep-animate delay-2">
+                            <h3>2008-2012: Explosión Global</h3>
+                            <p>Artistas como Skrillex y Nero popularizan un sonido más agresivo ("brostep") que conquista Estados Unidos. El dubstep se convierte en un fenómeno global, influenciando otros géneros y apareciendo en medios masivos.</p>
+                        </div>
+                    </div>
+                    <div class="dubstep-timeline-item dubstep-right">
+                        <div class="dubstep-timeline-content dubstep-animate delay-3">
+                            <h3>2013-Presente: Evolución</h3>
+                            <p>El género se diversifica con subestilos como future garage, post-dubstep y riddim. Artistas como Excision mantienen viva la escena del dubstep pesado, mientras otros exploran fusiones con trap, hip-hop y otros géneros.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pioneros -->
+            <section id="pioneros" class="dubstep-section">
+                <h2>Los Pioneros del Dubstep</h2>
+                <p>Estos artistas definieron el sonido del dubstep y llevaron el género a nuevas audiencias:</p>
+                
+                <div class="dubstep-grid">
+                    <div class="dubstep-card dubstep-animate">
+                        <img src="images/Skream.jpeg" alt="Skream" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Skream</h3>
+                            <p>Uno de los productores más influyentes del dubstep temprano, conocido por temas como "Midnight Request Line". Su estilo combinaba melodías atmosféricas con bajos potentes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dubstep-card dubstep-animate delay-1">
+                        <img src="images/Benga.jpeg" alt="Benga" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Benga</h3>
+                            <p>Pionero del género desde sus inicios, conocido por su álbum "Diary of an Afro Warrior". Su estilo innovador ayudó a definir el sonido del dubstep londinense.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dubstep-card dubstep-animate delay-2">
+                        <img src="images/Skrillex.jpeg" alt="Skrillex" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Skrillex</h3>
+                            <p>El productor estadounidense que popularizó el "brostep" con su EP "Scary Monsters and Nice Sprites", ganando múltiples Grammys y llevando el dubstep al mainstream.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subgéneros -->
+            <section id="subgeneros" class="dubstep-section">
+                <h2>Subgéneros del Dubstep</h2>
+                <p>El dubstep ha evolucionado en múltiples variantes que exploran diferentes intensidades y atmósferas:</p>
+                
+                <div class="dubstep-grid">
+                    <div class="dubstep-card dubstep-animate">
+                        <img src="images/Dubstep Clásico.gif" alt="Dubstep Clásico" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Dubstep Clásico</h3>
+                            <p>El sonido original de Londres, con bajos profundos pero más atmosférico y minimalista que versiones posteriores. Ejemplos: Mala, Coki, Loefah.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dubstep-card dubstep-animate delay-1">
+                        <img src="images/Brostep.gif" alt="Brostep" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Brostep</h3>
+                            <p>Un estilo más agresivo y centrado en drops potentes, popularizado en Estados Unidos. Artistas: Skrillex, Zomboy, Excision.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dubstep-card dubstep-animate delay-2">
+                        <img src="images/Riddim.gif" alt="Riddim" class="distort-img">
+                        <div class="dubstep-card-content">
+                            <h3>Riddim</h3>
+                            <p>Un subgénero minimalista con patrones de bajo repetitivos y ritmos sincopados. Artistas: Subfiltronik, Infekt, Oolacile.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video -->
+            <section id="video" class="dubstep-section">
+                <h2>Documental del Dubstep</h2>
+                <p>Explora la historia y evolución del dubstep con este documental:</p>
+                
+                <div class="dubstep-video-container">
+                    <iframe width="770" height="433" src="https://www.youtube.com/embed/voE-9PWUQx8" title="Historia Del Dubstep Y Su Evolucion" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Información personal estilo Dubstep -->
+            <section class="dubstep-personal-info dubstep-animate">
+                <h2>Información del Estudiante</h2>
+                <p><strong>Nombre completo:</strong> Enrique Davila Diaz</p>
+                <p><strong>Correo institucional:</strong> enrique.davila@alumnos.uacm.edu.mx</p>
+                <div class="location">
+                    <a href="https://www.google.com.mx/maps/place/UACM+Plantel+Casa+Libertad/@19.3669591,-98.9907456,15z/data=!4m6!3m5!1s0x85ce029fdbf99dd1:0xdea69e44b5e5cef!8m2!3d19.3576848!4d-99.0002355!16s%2Fg%2F1w112jmq?hl=es&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Ver ubicación de UACM Plantel Casa Libertad en Google Maps">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <span>UACM Plantel Casa Libertad</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer estilo Dubstep -->
+    <footer class="dubstep-footer">
+        <div class="container">
+            <p>EXPLORANDO MÚSICA ELECTRÓNICA - DUBSTEP</p>
+            <p>&copy; 2025 TODOS LOS DERECHOS RESERVADOS</p>
+            
+            <div class="dubstep-social-links">
+                <a href="https://www.facebook.com/dubstep" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/dubstep" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://soundcloud.com/dubstep" target="_blank"><i class="fab fa-soundcloud"></i></a>
+                <a href="https://www.instagram.com/dubstep/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.beatport.com/genre/dubstep/18" target="_blank"><i class="fas fa-compact-disc"></i></a>
+                <a href="https://www.mixcloud.com/dubstep/" target="_blank"><i class="fab fa-mixcloud"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.dubstep-animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+            
+            // Efecto de audio visualizer dubstep
+            const bars = document.querySelectorAll('.dubstep-bar');
+            
+            function animateBars() {
+                bars.forEach((bar, index) => {
+                    const randomHeight = Math.floor(Math.random() * 100) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                    
+                    // Cambiar color aleatoriamente en tonos verdes/morados
+                    const randomHue = Math.random() > 0.5 ? 
+                        Math.floor(Math.random() * 60) + 100 : // Verdes
+                        Math.floor(Math.random() * 60) + 280; // Morados
+                    bar.style.background = `linear-gradient(to top, hsl(${randomHue}, 100%, 50%), var(--neon-accent)`;
+                    
+                    // Reproducir sonido de beat en algunas barras
+                    if (index % 4 === 0 && Math.random() > 0.7) {
+                        const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
+                        sound.volume = 0.2;
+                        sound.play();
+                    }
+                });
+                
+                setTimeout(animateBars, 200);
+            }
+            
+            // Iniciar animación
+            animateBars();
+            
+            // Efecto de distorsión al hacer clic
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                const glitch = document.createElement('div');
+                glitch.style.position = 'fixed';
+                glitch.style.top = '0';
+                glitch.style.left = '0';
+                glitch.style.width = '100%';
+                glitch.style.height = '100%';
+                glitch.style.background = 'url("https://source.unsplash.com/random/1600x800/?circuit,technology")';
+                glitch.style.backgroundSize = 'cover';
+                glitch.style.opacity = '0';
+                glitch.style.zIndex = '9999';
+                glitch.style.pointerEvents = 'none';
+                glitch.style.filter = 'contrast(200%) brightness(2)';
+                document.body.appendChild(glitch);
+                
+                // Animación de aparición y desaparición
+                let opacity = 0;
+                let increasing = true;
+                const glitchSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
+                glitchSound.volume = 0.3;
+                glitchSound.play();
+                
+                const animateGlitch = () => {
+                    if (increasing) {
+                        opacity += 0.1;
+                        if (opacity >= 0.7) increasing = false;
+                    } else {
+                        opacity -= 0.05;
+                        if (opacity <= 0) {
+                            glitch.remove();
+                            return;
+                        }
+                    }
+                    
+                    glitch.style.opacity = opacity;
+                    glitch.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+                    requestAnimationFrame(animateGlitch);
+                };
+                
+                animateGlitch();
+            });
+            
+            // Efecto de sonido dubstep al pasar el ratón sobre las tarjetas
+            const hoverSounds = [
+                'https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3'
+            ];
+            
+            const cards = document.querySelectorAll('.dubstep-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const sound = new Audio(hoverSounds[Math.floor(Math.random() * hoverSounds.length)]);
+                    sound.volume = 0.3;
+                    sound.play();
+                    
+                    // Efecto de luz neón
+                    const neonEffect = document.createElement('div');
+                    neonEffect.style.position = 'absolute';
+                    neonEffect.style.top = '0';
+                    neonEffect.style.left = '0';
+                    neonEffect.style.width = '100%';
+                    neonEffect.style.height = '100%';
+                    neonEffect.style.boxShadow = `0 0 30px ${Math.random() > 0.5 ? 'var(--accent-color)' : 'var(--neon-accent)'}`;
+                    neonEffect.style.opacity = '0';
+                    neonEffect.style.transition = 'opacity 0.3s ease';
+                    neonEffect.style.pointerEvents = 'none';
+                    card.appendChild(neonEffect);
+                    
+                    setTimeout(() => {
+                        neonEffect.style.opacity = '0.7';
+                        setTimeout(() => {
+                            neonEffect.style.opacity = '0';
+                            setTimeout(() => neonEffect.remove(), 300);
+                        }, 300);
+                    }, 10);
+                });
+            });
+            
+            // Efecto de glitch aleatorio en el título
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const glitchTitle = document.querySelector('.glitch-effect');
+                    glitchTitle.style.animation = 'glitch-effect 0.5s';
+                    setTimeout(() => {
+                        glitchTitle.style.animation = '';
+                    }, 500);
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

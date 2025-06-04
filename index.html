@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorando Música Electrónica - Página Principal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon (versión mejorada) -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Para navegadores modernos -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <!-- Para Apple/Safari -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <!-- Para Windows Metro -->
+    <meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+    
+    <style>
+      :root {
+            --primary-color: #6a1b9a;
+            --secondary-color: #9c27b0;
+            --accent-color: #e91e63;
+            --background-color: #121212;
+            --text-color: #e0e0e0;
+            --animation-duration: 8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        nav {
+            background-color: #1e1e1e;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .main-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .section-card {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+
+        .section-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Animación de colores */
+        .color-animation {
+            background: linear-gradient(-45deg, #ff00cc, #3333ff, #00ccff, #ff0066);
+            background-size: 400% 400%;
+            animation: gradient var(--animation-duration) ease infinite;
+            padding: 2rem;
+            border-radius: 8px;
+            color: white;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Información personal */
+        .personal-info {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+        }
+
+        .personal-info h2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Redes sociales */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--secondary-color);
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Formulario de contacto */
+        .contact-form {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #2d2d2d;
+            color: var(--text-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Modal de contacto */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            animation: modalopen 0.5s;
+            border: 1px solid #333;
+        }
+
+        @keyframes modalopen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .close:hover {
+            color: var(--accent-color);
+        }
+
+        /* Ubicación institucional */
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            color: var(--text-color);
+        }
+
+        .location-icon {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        /* Efecto de audio visualizer */
+        .visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            gap: 5px;
+            margin: 2rem 0;
+        }
+
+        .bar {
+            width: 8px;
+            background: linear-gradient(to top, var(--accent-color), var(--secondary-color));
+            border-radius: 4px;
+            animation: equalizer 1.5s infinite ease-in-out;
+        }
+
+        @keyframes equalizer {
+            0%, 100% {
+                height: 10px;
+            }
+            50% {
+                height: 80px;
+            }
+        }
+
+        .bar:nth-child(1) { animation-delay: 0.1s; }
+        .bar:nth-child(2) { animation-delay: 0.3s; }
+        .bar:nth-child(3) { animation-delay: 0.5s; }
+        .bar:nth-child(4) { animation-delay: 0.2s; }
+        .bar:nth-child(5) { animation-delay: 0.4s; }
+        .bar:nth-child(6) { animation-delay: 0.6s; }
+        .bar:nth-child(7) { animation-delay: 0.3s; }
+        .bar:nth-child(8) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Explorando Música Electrónica</h1>
+            <p>Descubre los principales géneros y artistas de la escena electrónica</p>
+            <div class="visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#house">House</a></li>
+            <li><a href="#Techno">Techno</a></li>
+            <li><a href="#trance">Trance</a></li>
+            <li><a href="#dubstep">Dubstep</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Sección de animación de colores -->
+        <div class="color-animation">
+            <h2>Explora el universo de la música electrónica</h2>
+            <p>Sumérgete en los sonidos que definen generaciones y mueven multitudes</p>
+        </div>
+
+        <!-- Secciones principales -->
+        <div class="main-sections">
+            <div class="section-card" id="house">
+                <img src="images/House Music.gif" alt="House Music" class="section-img">
+                <div class="section-content">
+                    <h3>House Music</h3>
+                    <p>Originado en Chicago en los años 80, el House se caracteriza por sus ritmos 4/4, bajos profundos y vocales soul. Artistas como Frankie Knuckles, Daft Punk y Disclosure han llevado este género a lo más alto.</p>
+                    <a href="house.html" class="btn">Saber más</a>
+                </div>
+            </div>
+
+            <div class="section-card" id="techno">
+                <img src="images/Techno.gif" alt="Techno" class="section-img">
+                <div class="section-content">
+                    <h3>Techno</h3>
+                    <p>Nacido en Detroit, el Techno es un género más oscuro y minimalista, con ritmos mecánicos y sonidos industriales. Pioneros como Juan Atkins, Derrick May y artistas modernos como Amelie Lens definen este sonido.</p>
+                    <a href="techno.html" class="btn">Saber más</a>
+                </div>
+            </div>
+
+            <div class="section-card" id="trance">
+                <img src="images/Trance.gif" alt="Trance" class="section-img">
+                <div class="section-content">
+                    <h3>Trance</h3>
+                    <p>Caracterizado por sus melodías emotivas, builds épicos y drops energéticos, el Trance ha creado algunos de los momentos más memorables en festivales. Artistas como Armin van Buuren, Above & Beyond y Paul van Dyk son íconos del género.</p>
+                    <a href="trance.html" class="btn">Saber más</a>
+                </div>
+            </div>
+
+            <div class="section-card" id="dubstep">
+                <img src="images/Dubstep.gif" alt="Dubstep" class="section-img">
+                <div class="section-content">
+                    <h3>Dubstep</h3>
+                    <p>Originario del sur de Londres, el Dubstep se caracteriza por sus líneas de bajo distorsionadas y ritmos sincopados. Skrillex, Excision y Zeds Dead han popularizado este género en la escena mundial.</p>
+                    <a href="dubstep.html" class="btn">Saber más</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información personal -->
+        <div class="personal-info">
+            <h2>Información del Estudiante</h2>
+            <p><strong>Nombre completo:</strong> Enrique Davila Diaz</p>
+            <p><strong>Correo institucional:</strong> enrique.davila@alumnos.uacm.edu.mx</p>
+            
+            <div class="location">
+                <a href="https://www.google.com.mx/maps/place/UACM+Plantel+Casa+Libertad/@19.3669591,-98.9907456,15z/data=!4m6!3m5!1s0x85ce029fdbf99dd1:0xdea69e44b5e5cef!8m2!3d19.3576848!4d-99.0002355!16s%2Fg%2F1w112jmq?hl=es&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Ver ubicación de UACM Plantel Casa Libertad en Google Maps">
+                    <i class="fas fa-map-marker-alt location-icon"></i>
+                    <span>UACM Plantel Casa Libertad</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="social-links">
+            <a href="https://www.facebook.com/electronicmusic" target="_blank" title="Comunidad de Música Electrónica">
+                <i class="fab fa-facebook social-icon"></i>
+            </a>
+            <a href="https://twitter.com/edmcom" target="_blank" title="Noticias de EDM">
+                <i class="fab fa-twitter social-icon"></i>
+            </a>
+            <a href="https://www.linkedin.com/groups/12345678/" target="_blank" title="Profesionales de la Música">
+                <i class="fab fa-linkedin social-icon"></i>
+            </a>
+            <a href="https://www.reddit.com/r/electronicmusic/" target="_blank" title="Comunidad de Música Electrónica en Reddit">
+                <i class="fab fa-reddit social-icon"></i>
+            </a>
+            <a href="https://www.tiktok.com/@electronicmusic" target="_blank" title="Música Electrónica en TikTok">
+                <i class="fab fa-tiktok social-icon"></i>
+            </a>
+            <a href="#" id="info-icon" title="Formulario de contacto">
+                <i class="fas fa-info-circle social-icon"></i>
+            </a>
+            <a href="https://wa.me/525512345678" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp social-icon"></i>
+            </a>
+        </div>
+
+        <!-- Modal de contacto (inicialmente oculto) -->
+        <div id="contactModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Formulario de Contacto</h2>
+                <form class="contact-form" action="https://formspree.io/f/xgvyevow" method="POST" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Asunto:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Explorando Música Electrónica. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mostrar/ocultar modal de contacto
+        const modal = document.getElementById("contactModal");
+        const btn = document.getElementById("info-icon");
+        const span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Enviar el formulario a Formspree
+            fetch(this.action, {
+                method: this.method,
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.");
+                    modal.style.display = "none";
+                    this.reset();
+                } else {
+                    throw new Error('Error en el envío del formulario');
+                }
+            })
+            .catch(error => {
+                alert("Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.");
+                console.error(error);
+            });
+        });
+
+        // Animación de cambio de colores más dinámica
+        document.addEventListener("DOMContentLoaded", function() {
+            const root = document.documentElement;
+            let hue = 300; // Comenzar con tonos morados
+
+            function updateColors() {
+                hue = (hue + 1) % 360;
+                root.style.setProperty('--primary-color', `hsl(${hue}, 70%, 50%)`);
+                root.style.setProperty('--secondary-color', `hsl(${(hue + 30) % 360}, 70%, 40%)`);
+                root.style.setProperty('--accent-color', `hsl(${(hue + 60) % 360}, 80%, 70%)`);
+                requestAnimationFrame(updateColors);
+            }
+
+            // Iniciar la animación de colores
+            updateColors();
+        });
+
+        // Efecto de visualizador de audio
+        document.addEventListener('DOMContentLoaded', function() {
+            const bars = document.querySelectorAll('.bar');
+            
+            function animateBars() {
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 80) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                });
+                
+                setTimeout(animateBars, 150);
+            }
+            
+            animateBars();
+        });
+    </script>
+</body>
+</html>

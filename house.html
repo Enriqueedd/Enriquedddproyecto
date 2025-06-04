@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Music - Explorando Música Electrónica</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #6a1b9a;
+            --secondary-color: #9c27b0;
+            --accent-color: #e91e63;
+            --text-color: #e0e0e0;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --animation-duration: 8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header estilo Club Nocturno */
+        .club-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .club-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .club-header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .club-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1600x800/?nightclub,dj') center/cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        /* Visualizador de audio en el header */
+        .audio-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            gap: 5px;
+            margin: 2rem auto 0;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .audio-bar {
+            width: 8px;
+            background: linear-gradient(to top, var(--accent-color), var(--secondary-color));
+            border-radius: 4px;
+            animation: equalizer 1.5s infinite ease-in-out;
+        }
+
+        @keyframes equalizer {
+            0%, 100% { height: 10px; }
+            50% { height: 80px; }
+        }
+
+        /* Nav estilo Club */
+        .club-nav {
+            background-color: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .club-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .club-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .club-nav a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+            border-color: var(--accent-color);
+        }
+
+        /* Main content estilo Club */
+        .club-main {
+            padding: 2rem 0;
+        }
+
+        .club-section {
+            margin-bottom: 3rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .club-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .club-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .club-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .club-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+
+        .club-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .club-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(30%) contrast(110%);
+        }
+
+        .club-card:hover img {
+            filter: grayscale(0%) contrast(120%);
+        }
+
+        .club-card-content {
+            padding: 1.5rem;
+        }
+
+        .club-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .club-card p {
+            color: #ccc;
+        }
+
+        /* Video container */
+        .club-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .club-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer estilo Club */
+        .club-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .club-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        .club-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .club-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .club-social-links a {
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .club-social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px) scale(1.2);
+            text-shadow: 0 0 15px rgba(233, 30, 99, 0.8);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .club-animate {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Personal info estilo Club */
+        .club-personal-info {
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .club-personal-info h2 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Color animation estilo luces de club */
+        .club-color-section {
+            background: linear-gradient(-45deg, #ff00cc, #3333ff, #00ccff, #ff0066);
+            background-size: 400% 400%;
+            animation: gradient var(--animation-duration) ease infinite;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            margin: 3rem 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .club-color-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        /* Timeline de la historia del House */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -12px;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .timeline-content h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .club-nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .club-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .club-header p {
+                font-size: 1.2rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .left::after, .right::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .club-header h1 {
+                font-size: 2rem;
+            }
+
+            .club-header p {
+                font-size: 1rem;
+            }
+
+            .club-nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .club-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header estilo Club -->
+    <header class="club-header">
+        <div class="container">
+            <h1 class="club-animate">House Music</h1>
+            <p class="club-animate delay-1">El ritmo que nació en Chicago y conquistó el mundo</p>
+            <div class="audio-visualizer">
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav estilo Club -->
+    <nav class="club-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#historia"><i class="fas fa-history"></i> Historia</a></li>
+                <li><a href="#artistas"><i class="fas fa-star"></i> Artistas</a></li>
+                <li><a href="#subgeneros"><i class="fas fa-music"></i> Subgéneros</a></li>
+                <li><a href="#video"><i class="fas fa-video"></i> Video</a></li>
+                <li><a href="techno.html"><i class="fas fa-headphones"></i> Techno</a></li>
+                <li><a href="trance.html"><i class="fas fa-cloud"></i> Trance</a></li>
+                <li><a href="dubstep.html"><i class="fas fa-bolt"></i> Dubstep</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="club-main">
+        <div class="container">
+            <!-- Sección de animación de colores -->
+            <section class="club-color-section club-animate delay-2">
+                <h2>Feel the House Rhythm</h2>
+                <p>El sonido que revolucionó la música dance y sigue dominando las pistas</p>
+            </section>
+
+            <!-- Historia -->
+            <section id="historia" class="club-section club-animate">
+                <h2>Historia del House</h2>
+                <p>El House es un género de música electrónica que se originó en Chicago a principios de los años 80. Nació en clubes como el Warehouse, donde DJs como Frankie Knuckles mezclaban elementos del disco, soul y synthpop con ritmos electrónicos.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content club-animate">
+                            <h3>1980-1984: Los Orígenes</h3>
+                            <p>DJs como Frankie Knuckles y Ron Hardy comienzan a experimentar con drum machines y sintetizadores, creando versiones editadas de discos de disco y funk.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content club-animate delay-1">
+                            <h3>1985-1989: La Explosión</h3>
+                            <p>Producciones como "On and On" de Jesse Saunders y "Your Love" de Frankie Knuckles definen el sonido. El house llega a Europa y se populariza en Ibiza y Londres.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content club-animate delay-2">
+                            <h3>1990-1999: Globalización</h3>
+                            <p>Nacen subgéneros como el deep house, acid house y progressive house. Artistas como Daft Punk llevan el house al mainstream.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content club-animate delay-3">
+                            <h3>2000-Presente: Evolución</h3>
+                            <p>El house se diversifica con estilos como el electro house, future house y tropical house. Sigue siendo dominante en festivales y clubes mundialmente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Artistas -->
+            <section id="artistas" class="club-section">
+                <h2>Leyendas del House</h2>
+                <p>Estos artistas han definido y transformado el género a lo largo de las décadas:</p>
+                
+                <div class="club-grid">
+                    <div class="club-card club-animate">
+                        <img src="images/Frankie Knuckles.jpg" alt="Frankie Knuckles">
+                        <div class="club-card-content">
+                            <h3>Frankie Knuckles</h3>
+                            <p>Conocido como "El Padrino del House", fue DJ residente en el Warehouse de Chicago donde el género tomó su nombre.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="club-card club-animate delay-1">
+                        <img src="images/Daft Punk.gif" alt="Daft Punk">
+                        <div class="club-card-content">
+                            <h3>Daft Punk</h3>
+                            <p>El dúo francés que llevó el house al mainstream con su álbum "Homework" en 1997.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="club-card club-animate delay-2">
+                        <img src="images/Armand Van Helden.jpeg" alt="Armand Van Helden">
+                        <div class="club-card-content">
+                            <h3>Armand Van Helden</h3>
+                            <p>Pionero del speed garage y el house con samples, conocido por hits como "U Don't Know Me".</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subgéneros -->
+            <section id="subgeneros" class="club-section">
+                <h2>Subgéneros Principales</h2>
+                <p>El house ha evolucionado en múltiples variantes que exploran diferentes sonidos y atmósferas:</p>
+                
+                <div class="club-grid">
+                    <div class="club-card club-animate">
+                        <img src="images/Deep House.gif" alt="Deep House">
+                        <div class="club-card-content">
+                            <h3>Deep House</h3>
+                            <p>Caracterizado por ritmos más lentos (120-125 BPM), bajos prominentes y atmósferas jazzy/soulful.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="club-card club-animate delay-1">
+                        <img src="images/Acid House.gif" alt="Acid House">
+                        <div class="club-card-content">
+                            <h3>Acid House</h3>
+                            <p>Definido por los sonidos del TB-303, con líneas de bajo "ácidas" y ritmos hipnóticos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="club-card club-animate delay-2">
+                        <img src="images/Tech House.gif" alt="Tech House">
+                        <div class="club-card-content">
+                            <h3>Tech House</h3>
+                            <p>Fusión de elementos del techno y house, con ritmos más mecánicos y minimalistas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video -->
+            <section id="video" class="club-section">
+                <h2>Documental del House</h2>
+                <p>Conoce más sobre la historia y cultura del house en este documental:</p>
+                
+                <div class="club-video-container">
+                    <iframe width="770" height="433" src="https://www.youtube.com/embed/oWNWGucu2S4" title="Historia del House Parte 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Información personal estilo Club -->
+            <section class="club-personal-info club-animate">
+                <h2>Información del Estudiante</h2>
+                <p><strong>Nombre completo:</strong> Enrique Davila Diaz</p>
+                <p><strong>Correo institucional:</strong> enrique.davila@alumnos.uacm.edu.mx</p>
+                <div class="location">
+                    <a href="https://www.google.com.mx/maps/place/UACM+Plantel+Casa+Libertad/@19.3669591,-98.9907456,15z/data=!4m6!3m5!1s0x85ce029fdbf99dd1:0xdea69e44b5e5cef!8m2!3d19.3576848!4d-99.0002355!16s%2Fg%2F1w112jmq?hl=es&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Ver ubicación de UACM Plantel Casa Libertad en Google Maps">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <span>UACM Plantel Casa Libertad</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer estilo Club -->
+    <footer class="club-footer">
+        <div class="container">
+            <p>Explorando Música Electrónica - House Music</p>
+            <p>&copy; 2025 Todos los derechos reservados</p>
+            
+            <div class="club-social-links">
+                <a href="https://www.facebook.com/housemusic" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/housemusic" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://soundcloud.com/housemusic" target="_blank"><i class="fab fa-soundcloud"></i></a>
+                <a href="https://www.instagram.com/housemusic/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://open.spotify.com/genre/house-page" target="_blank"><i class="fab fa-spotify"></i></a>
+                <a href="https://www.beatport.com/genre/house/5" target="_blank"><i class="fas fa-compact-disc"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.club-animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+            
+            // Efecto de audio visualizer interactivo
+            const bars = document.querySelectorAll('.audio-bar');
+            let lastBeat = 0;
+            
+            function animateBars(timestamp) {
+                if (timestamp - lastBeat > 150) { // 150ms entre beats
+                    lastBeat = timestamp;
+                    bars.forEach(bar => {
+                        const randomHeight = Math.floor(Math.random() * 80) + 10;
+                        bar.style.height = `${randomHeight}px`;
+                        
+                        // Cambiar color aleatoriamente en tonos morados/rosas
+                        const randomHue = Math.floor(Math.random() * 60) + 270;
+                        bar.style.background = `linear-gradient(to top, hsl(${randomHue}, 80%, 60%), var(--secondary-color))`;
+                    });
+                }
+                requestAnimationFrame(animateBars);
+            }
+            
+            // Iniciar animación
+            requestAnimationFrame(animateBars);
+            
+            // Efecto de luces estroboscópicas al hacer clic
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                const colors = ['#6a1b9a', '#9c27b0', '#e91e63', '#00ccff', '#ff0066'];
+                const flashes = 5;
+                
+                for (let i = 0; i < flashes; i++) {
+                    setTimeout(() => {
+                        const flash = document.createElement('div');
+                        flash.style.position = 'fixed';
+                        flash.style.top = '0';
+                        flash.style.left = '0';
+                        flash.style.width = '100%';
+                        flash.style.height = '100%';
+                        flash.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        flash.style.opacity = '0.3';
+                        flash.style.zIndex = '9999';
+                        flash.style.pointerEvents = 'none';
+                        document.body.appendChild(flash);
+                        
+                        setTimeout(() => {
+                            flash.style.transition = 'opacity 0.3s ease';
+                            flash.style.opacity = '0';
+                            setTimeout(() => flash.remove(), 300);
+                        }, 50);
+                    }, i * 100);
+                }
+            });
+            
+            // Efecto de sonido al pasar el ratón sobre las tarjetas
+            const hoverSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3');
+            const cards = document.querySelectorAll('.club-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play();
+                });
+            });
+        });
+    </script>
+</body>
+</html>s

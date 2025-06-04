@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techno - Explorando Música Electrónica</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #0f0f1a;
+            --secondary-color: #1a1a2e;
+            --accent-color: #6a00f4;
+            --neon-accent: #00f5d4;
+            --text-color: #e0e0e0;
+            --dark-bg: #0a0a12;
+            --card-bg: #161625;
+            --border-color: #2a2a3a;
+            --animation-duration: 8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header estilo Industrial */
+        .industrial-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .industrial-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px var(--neon-accent);
+            font-weight: 700;
+        }
+
+        .industrial-header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .industrial-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1600x800/?techno,club,industrial') center/cover;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        /* Efecto de escaneo */
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.03) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            background-size: 100% 8px;
+            animation: scan 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Visualizador de audio industrial */
+        .industrial-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 120px;
+            gap: 3px;
+            margin: 2rem auto 0;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .industrial-bar {
+            width: 12px;
+            background: linear-gradient(to top, var(--accent-color), var(--neon-accent));
+            border-radius: 2px;
+            animation: industrial-equalizer 1.8s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        @keyframes industrial-equalizer {
+            0%, 100% { height: 10px; opacity: 0.7; }
+            50% { height: 100px; opacity: 1; }
+        }
+
+        /* Nav estilo Industrial */
+        .industrial-nav {
+            background-color: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .industrial-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .industrial-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.7rem 1.8rem;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            background: rgba(10,10,20,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .industrial-nav a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            transition: 0.5s;
+        }
+
+        .industrial-nav a:hover {
+            color: var(--neon-accent);
+            border-color: var(--neon-accent);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .industrial-nav a:hover::before {
+            left: 100%;
+        }
+
+        /* Main content estilo Industrial */
+        .industrial-main {
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .industrial-section {
+            margin-bottom: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 0;
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .industrial-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-color), var(--neon-accent));
+        }
+
+        .industrial-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .industrial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .industrial-card {
+            background: var(--card-bg);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .industrial-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(106, 0, 244, 0.3);
+            border-color: var(--neon-accent);
+        }
+
+        .industrial-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .industrial-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(40%) contrast(120%) brightness(0.8);
+        }
+
+        .industrial-card:hover img {
+            filter: grayscale(0%) contrast(110%) brightness(1);
+        }
+
+        .industrial-card-content {
+            padding: 1.8rem;
+        }
+
+        .industrial-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .industrial-card p {
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Video container */
+        .industrial-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .industrial-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer estilo Industrial */
+        .industrial-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 5rem;
+            position: relative;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .industrial-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-accent), transparent);
+        }
+
+        .industrial-footer p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .industrial-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .industrial-social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .industrial-social-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-accent);
+            transition: width 0.3s ease;
+        }
+
+        .industrial-social-links a:hover {
+            color: var(--neon-accent);
+            transform: translateY(-5px);
+            text-shadow: 0 0 15px var(--neon-accent);
+        }
+
+        .industrial-social-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .industrial-animate {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+
+        /* Personal info estilo Industrial */
+        .industrial-personal-info {
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .industrial-personal-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .industrial-personal-info h2 {
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* Color animation estilo industrial */
+        .industrial-color-section {
+            background: linear-gradient(-45deg, #0f0f1a, #6a00f4, #1a1a2e, #00f5d4);
+            background-size: 400% 400%;
+            animation: gradient var(--animation-duration) ease infinite;
+            padding: 4rem 2rem;
+            color: white;
+            text-align: center;
+            margin: 4rem 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 30px rgba(106, 0, 244, 0.3);
+        }
+
+        .industrial-color-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(0,245,212,0.1) 49%, rgba(0,245,212,0.1) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(0,245,212,0.1) 49%, rgba(0,245,212,0.1) 51%, transparent 52%);
+            background-size: 1em 1em;
+            opacity: 0.5;
+            animation: industrial-pattern 20s linear infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes industrial-pattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(1em, 1em); }
+        }
+
+        /* Timeline de la historia del Techno */
+        .industrial-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .industrial-timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent-color), var(--neon-accent));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .industrial-timeline-item {
+            padding: 15px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .industrial-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--card-bg);
+            border: 4px solid var(--neon-accent);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--neon-accent);
+        }
+
+        .industrial-left {
+            left: 0;
+        }
+
+        .industrial-right {
+            left: 50%;
+        }
+
+        .industrial-left::after {
+            right: -16px;
+        }
+
+        .industrial-right::after {
+            left: -16px;
+        }
+
+        .industrial-timeline-content {
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .industrial-timeline-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .industrial-timeline-content h3 {
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .industrial-nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .industrial-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .industrial-header p {
+                font-size: 1.2rem;
+            }
+
+            .industrial-timeline::after {
+                left: 31px;
+            }
+
+            .industrial-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .industrial-timeline-item::after {
+                left: 21px;
+            }
+
+            .industrial-left::after, .industrial-right::after {
+                left: 21px;
+            }
+
+            .industrial-right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .industrial-header h1 {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+
+            .industrial-header p {
+                font-size: 1rem;
+            }
+
+            .industrial-nav a {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .industrial-section {
+                padding: 1.8rem;
+            }
+
+            .industrial-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .industrial-card-content {
+                padding: 1.4rem;
+            }
+        }
+
+        /* Efecto de glitch en el título */
+        .glitch-effect {
+            position: relative;
+        }
+
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-effect::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+
+        .glitch-effect::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header estilo Industrial -->
+    <header class="industrial-header">
+        <div class="scanline"></div>
+        <div class="container">
+            <h1 class="industrial-animate glitch-effect" data-text="TECHNO">TECHNO</h1>
+            <p class="industrial-animate delay-1">El pulso mecánico que nació en Detroit y conquistó el mundo</p>
+            <div class="industrial-visualizer">
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+                <div class="industrial-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav estilo Industrial -->
+    <nav class="industrial-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#historia"><i class="fas fa-history"></i> Historia</a></li>
+                <li><a href="#pioneros"><i class="fas fa-robot"></i> Pioneros</a></li>
+                <li><a href="#subgeneros"><i class="fas fa-cogs"></i> Subgéneros</a></li>
+                <li><a href="#video"><i class="fas fa-play"></i> Documental</a></li>
+                <li><a href="house.html"><i class="fas fa-music"></i> House</a></li>
+                <li><a href="trance.html"><i class="fas fa-cloud"></i> Trance</a></li>
+                <li><a href="dubstep.html"><i class="fas fa-bolt"></i> Dubstep</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="industrial-main">
+        <div class="container">
+            <!-- Sección de animación de colores -->
+            <section class="industrial-color-section industrial-animate delay-2">
+                <h2>EXPERIMENTA EL RITMO INDUSTRIAL</h2>
+                <p>EL SONIDO DEL FUTURO CREADO EN LOS BARRIOS DE DETROIT</p>
+            </section>
+
+            <!-- Historia -->
+            <section id="historia" class="industrial-section industrial-animate">
+                <h2>Historia del Techno</h2>
+                <p>El techno es un género de música electrónica que surgió a mediados de los años 80 en Detroit, Estados Unidos. Creado por un grupo de jóvenes afroamericanos influenciados por el electro, el funk y la música europea de Kraftwerk, el techno se caracteriza por sus ritmos mecánicos, sonidos industriales y atmósferas futuristas.</p>
+                
+                <div class="industrial-timeline">
+                    <div class="industrial-timeline-item industrial-left">
+                        <div class="industrial-timeline-content industrial-animate">
+                            <h3>1981-1987: Los Orígenes</h3>
+                            <p>Los "Belleville Three" (Juan Atkins, Derrick May y Kevin Saunderson) comienzan a experimentar con sintetizadores y cajas de ritmos, creando las primeras producciones de techno bajo nombres como Cybotron y Model 500.</p>
+                        </div>
+                    </div>
+                    <div class="industrial-timeline-item industrial-right">
+                        <div class="industrial-timeline-content industrial-animate delay-1">
+                            <h3>1988-1993: La Exportación</h3>
+                            <p>El techno llega a Europa, especialmente a Alemania donde encuentra un terreno fértil. Sellos como Tresor y artistas como Jeff Mills popularizan el sonido en el viejo continente.</p>
+                        </div>
+                    </div>
+                    <div class="industrial-timeline-item industrial-left">
+                        <div class="industrial-timeline-content industrial-animate delay-2">
+                            <h3>1994-1999: Diversificación</h3>
+                            <p>Aparecen subgéneros como el minimal techno, acid techno y hard techno. Festivales como Love Parade en Berlín llevan el techno a masas de más de un millón de personas.</p>
+                        </div>
+                    </div>
+                    <div class="industrial-timeline-item industrial-right">
+                        <div class="industrial-timeline-content industrial-animate delay-3">
+                            <h3>2000-Presente: Globalización</h3>
+                            <p>El techno se convierte en un fenómeno global con escenas fuertes en todo el mundo. Artistas como Richie Hawtin y Nina Kraviz llevan el género a nuevos niveles de popularidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pioneros -->
+            <section id="pioneros" class="industrial-section">
+                <h2>Los Pioneros del Techno</h2>
+                <p>Estos artistas sentaron las bases del género y continúan siendo influencia para las nuevas generaciones:</p>
+                
+                <div class="industrial-grid">
+                    <div class="industrial-card industrial-animate">
+                        <img src="images/juan-atkins.jpg" alt="Juan Atkins">
+                        <div class="industrial-card-content">
+                            <h3>Juan Atkins</h3>
+                            <p>Conocido como "El Originador", fundador de Cybotron y Model 500. Considerado el padre del techno junto con Derrick May y Kevin Saunderson (The Belleville Three).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="industrial-card industrial-animate delay-1">
+                        <img src="images/Derrick May.jpg" alt="Derrick May">
+                        <div class="industrial-card-content">
+                            <h3>Derrick May</h3>
+                            <p>Creador de clásicos como "Strings of Life" bajo el alias Rhythim Is Rhythim. Su estilo "techno soul" definió el sonido de Detroit.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="industrial-card industrial-animate delay-2">
+                        <img src="images/jeffmills.jpg" alt="Jeff Mills">
+                        <div class="industrial-card-content">
+                            <h3>Jeff Mills</h3>
+                            <p>Ex-miembro de Underground Resistance, conocido como "The Wizard" por sus habilidades de DJ. Su estilo minimalista y rápido revolucionó el techno.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subgéneros -->
+            <section id="subgeneros" class="industrial-section">
+                <h2>Subgéneros del Techno</h2>
+                <p>El techno ha evolucionado en múltiples variantes que exploran diferentes intensidades y atmósferas:</p>
+                
+                <div class="industrial-grid">
+                    <div class="industrial-card industrial-animate">
+                        <img src="images/Detroit Techno.jpg" alt="Detroit Techno">
+                        <div class="industrial-card-content">
+                            <h3>Detroit Techno</h3>
+                            <p>El sonido original, con influencias del funk y soul. Más orgánico y melódico que otras formas de techno.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="industrial-card industrial-animate delay-1">
+                        <img src="images/Minimal Techno.gif" alt="Minimal Techno">
+                        <div class="industrial-card-content">
+                            <h3>Minimal Techno</h3>
+                            <p>Caracterizado por su extrema simplificación, con pocos elementos y cambios sutiles que crean hipnosis rítmica.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="industrial-card industrial-animate delay-2">
+                        <img src="images/Industrial Techno.gif" alt="Industrial Techno">
+                        <div class="industrial-card-content">
+                            <h3>Industrial Techno</h3>
+                            <p>Fusión con la música industrial, con sonidos más agresivos, distorsionados y atmósferas oscuras.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video -->
+            <section id="video" class="industrial-section">
+                <h2>Documental del Techno</h2>
+                <p>Sumérgete en la historia y cultura del techno con este documental esencial:</p>
+                
+                <div class="industrial-video-container">
+                    <iframe width="577" height="433" src="https://www.youtube.com/embed/wlv92hSXlq8" title="Documental Musica Electronica -Detroit Techno  (Español)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Información personal estilo Industrial -->
+            <section class="industrial-personal-info industrial-animate">
+                <h2>Información del Estudiante</h2>
+                <p><strong>Nombre completo:</strong> Enrique Davila Diaz</p>
+                <p><strong>Correo institucional:</strong> enrique.davila@alumnos.uacm.edu.mx</p>
+                <div class="location">
+                    <a href="https://www.google.com.mx/maps/place/UACM+Plantel+Casa+Libertad/@19.3669591,-98.9907456,15z/data=!4m6!3m5!1s0x85ce029fdbf99dd1:0xdea69e44b5e5cef!8m2!3d19.3576848!4d-99.0002355!16s%2Fg%2F1w112jmq?hl=es&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Ver ubicación de UACM Plantel Casa Libertad en Google Maps">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <span>UACM Plantel Casa Libertad</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer estilo Industrial -->
+    <footer class="industrial-footer">
+        <div class="container">
+            <p>EXPLORANDO MÚSICA ELECTRÓNICA - TECHNO</p>
+            <p>&copy; 2025 TODOS LOS DERECHOS RESERVADOS</p>
+            
+            <div class="industrial-social-links">
+                <a href="https://www.facebook.com/techno" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/techno" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://soundcloud.com/techno" target="_blank"><i class="fab fa-soundcloud"></i></a>
+                <a href="https://www.instagram.com/techno/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.beatport.com/genre/techno/11" target="_blank"><i class="fas fa-compact-disc"></i></a>
+                <a href="https://www.mixcloud.com/techno/" target="_blank"><i class="fab fa-mixcloud"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.industrial-animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+            
+            // Efecto de audio visualizer industrial
+            const bars = document.querySelectorAll('.industrial-bar');
+            let lastBeat = 0;
+            const beatSounds = [
+                'https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-beep-901.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-retro-game-notification-212.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3'
+            ];
+            
+            function animateBars(timestamp) {
+                if (timestamp - lastBeat > 150) { // 150ms entre beats
+                    lastBeat = timestamp;
+                    bars.forEach((bar, index) => {
+                        const randomHeight = Math.floor(Math.random() * 100) + 10;
+                        bar.style.height = `${randomHeight}px`;
+                        
+                        // Cambiar color aleatoriamente en tonos azules/morados
+                        const randomHue = Math.floor(Math.random() * 60) + 240;
+                        bar.style.background = `linear-gradient(to top, hsl(${randomHue}, 100%, 50%), var(--neon-accent)`;
+                        
+                        // Reproducir sonido de beat en algunas barras
+                        if (index % 3 === 0 && Math.random() > 0.7) {
+                            const sound = new Audio(beatSounds[Math.floor(Math.random() * beatSounds.length)]);
+                            sound.volume = 0.2;
+                            sound.play();
+                        }
+                    });
+                }
+                requestAnimationFrame(animateBars);
+            }
+            
+            // Iniciar animación
+            requestAnimationFrame(animateBars);
+            
+            // Efecto de distorsión al hacer clic
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                const glitch = document.createElement('div');
+                glitch.style.position = 'fixed';
+                glitch.style.top = '0';
+                glitch.style.left = '0';
+                glitch.style.width = '100%';
+                glitch.style.height = '100%';
+                glitch.style.background = 'url("https://source.unsplash.com/random/1600x800/?circuit,technology")';
+                glitch.style.backgroundSize = 'cover';
+                glitch.style.opacity = '0';
+                glitch.style.zIndex = '9999';
+                glitch.style.pointerEvents = 'none';
+                glitch.style.filter = 'contrast(200%) brightness(2)';
+                document.body.appendChild(glitch);
+                
+                // Animación de aparición y desaparición
+                let opacity = 0;
+                let increasing = true;
+                const glitchSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
+                glitchSound.volume = 0.3;
+                glitchSound.play();
+                
+                const animateGlitch = () => {
+                    if (increasing) {
+                        opacity += 0.1;
+                        if (opacity >= 0.7) increasing = false;
+                    } else {
+                        opacity -= 0.05;
+                        if (opacity <= 0) {
+                            glitch.remove();
+                            return;
+                        }
+                    }
+                    
+                    glitch.style.opacity = opacity;
+                    glitch.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+                    requestAnimationFrame(animateGlitch);
+                };
+                
+                animateGlitch();
+            });
+            
+            // Efecto de sonido industrial al pasar el ratón sobre las tarjetas
+            const hoverSounds = [
+                'https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3'
+            ];
+            
+            const cards = document.querySelectorAll('.industrial-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const sound = new Audio(hoverSounds[Math.floor(Math.random() * hoverSounds.length)]);
+                    sound.volume = 0.3;
+                    sound.play();
+                    
+                    // Efecto de luz neón
+                    const neonEffect = document.createElement('div');
+                    neonEffect.style.position = 'absolute';
+                    neonEffect.style.top = '0';
+                    neonEffect.style.left = '0';
+                    neonEffect.style.width = '100%';
+                    neonEffect.style.height = '100%';
+                    neonEffect.style.boxShadow = `0 0 30px ${Math.random() > 0.5 ? 'var(--accent-color)' : 'var(--neon-accent)'}`;
+                    neonEffect.style.opacity = '0';
+                    neonEffect.style.transition = 'opacity 0.3s ease';
+                    neonEffect.style.pointerEvents = 'none';
+                    card.appendChild(neonEffect);
+                    
+                    setTimeout(() => {
+                        neonEffect.style.opacity = '0.7';
+                        setTimeout(() => {
+                            neonEffect.style.opacity = '0';
+                            setTimeout(() => neonEffect.remove(), 300);
+                        }, 300);
+                    }, 10);
+                });
+            });
+            
+            // Efecto de glitch aleatorio en el título
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const glitchTitle = document.querySelector('.glitch-effect');
+                    glitchTitle.style.animation = 'glitch-effect 0.5s';
+                    setTimeout(() => {
+                        glitchTitle.style.animation = '';
+                    }, 500);
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trance - Explorando Música Electrónica</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #0a0a1a;
+            --secondary-color: #1a1a3a;
+            --accent-color: #4b00b0;
+            --neon-accent: #00d4ff;
+            --text-color: #e0e0e0;
+            --dark-bg: #0a0a12;
+            --card-bg: #16162d;
+            --border-color: #2a2a4a;
+            --animation-duration: 12s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header estilo Trance */
+        .trance-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .trance-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px var(--neon-accent);
+            font-weight: 700;
+        }
+
+        .trance-header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .trance-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1600x800/?trance,rave,nightclub') center/cover;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        /* Efecto de partículas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--neon-accent);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float var(--animation-duration) infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+            50% { transform: translateY(-100px) translateX(20px); opacity: 0.8; }
+        }
+
+        /* Visualizador de audio trance */
+        .trance-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 120px;
+            gap: 3px;
+            margin: 2rem auto 0;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .trance-bar {
+            width: 8px;
+            background: linear-gradient(to top, var(--accent-color), var(--neon-accent));
+            border-radius: 4px;
+            animation: trance-equalizer 1.5s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--neon-accent);
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        @keyframes trance-equalizer {
+            0%, 100% { height: 20px; opacity: 0.7; }
+            50% { height: 120px; opacity: 1; }
+        }
+
+        /* Nav estilo Trance */
+        .trance-nav {
+            background-color: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .trance-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .trance-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            background: rgba(10,10,30,0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .trance-nav a:hover {
+            color: var(--neon-accent);
+            border-color: var(--neon-accent);
+            box-shadow: 0 0 15px var(--neon-accent);
+            transform: translateY(-3px);
+        }
+
+        /* Main content estilo Trance */
+        .trance-main {
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .trance-section {
+            margin-bottom: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trance-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent), var(--accent-color));
+        }
+
+        .trance-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px var(--neon-accent);
+        }
+
+        .trance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .trance-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .trance-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(75, 0, 176, 0.3);
+            border-color: var(--neon-accent);
+        }
+
+        .trance-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: brightness(0.8) saturate(1.2);
+            transition: filter 0.4s ease;
+        }
+
+        .trance-card:hover img {
+            filter: brightness(1) saturate(1.5);
+        }
+
+        .trance-card-content {
+            padding: 1.8rem;
+        }
+
+        .trance-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trance-card p {
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Video container */
+        .trance-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+
+        .trance-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer estilo Trance */
+        .trance-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 5rem;
+            position: relative;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .trance-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-accent), transparent);
+        }
+
+        .trance-footer p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .trance-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .trance-social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .trance-social-links a:hover {
+            color: var(--neon-accent);
+            transform: translateY(-5px) scale(1.2);
+            text-shadow: 0 0 15px var(--neon-accent);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .trance-animate {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+
+        /* Personal info estilo Trance */
+        .trance-personal-info {
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .trance-personal-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .trance-personal-info h2 {
+            color: var(--neon-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--neon-accent);
+        }
+
+        /* Color animation estilo trance */
+        .trance-color-section {
+            background: linear-gradient(-45deg, #0a0a1a, #4b00b0, #1a1a3a, #00d4ff);
+            background-size: 400% 400%;
+            animation: gradient var(--animation-duration) ease infinite;
+            padding: 4rem 2rem;
+            color: white;
+            text-align: center;
+            margin: 4rem 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 30px rgba(75, 0, 176, 0.3);
+            border-radius: 10px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Timeline de la historia del Trance */
+        .trance-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .trance-timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent-color), var(--neon-accent));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 15px var(--neon-accent);
+        }
+
+        .trance-timeline-item {
+            padding: 15px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .trance-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--card-bg);
+            border: 4px solid var(--neon-accent);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--neon-accent);
+        }
+
+        .trance-left {
+            left: 0;
+        }
+
+        .trance-right {
+            left: 50%;
+        }
+
+        .trance-left::after {
+            right: -16px;
+        }
+
+        .trance-right::after {
+            left: -16px;
+        }
+
+        .trance-timeline-content {
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .trance-timeline-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--neon-accent));
+        }
+
+        .trance-timeline-content h3 {
+            color: var(--neon-accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .trance-nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .trance-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .trance-header p {
+                font-size: 1.2rem;
+            }
+
+            .trance-timeline::after {
+                left: 31px;
+            }
+
+            .trance-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .trance-timeline-item::after {
+                left: 21px;
+            }
+
+            .trance-left::after, .trance-right::after {
+                left: 21px;
+            }
+
+            .trance-right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .trance-header h1 {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+
+            .trance-header p {
+                font-size: 1rem;
+            }
+
+            .trance-nav a {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .trance-section {
+                padding: 1.8rem;
+            }
+
+            .trance-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .trance-card-content {
+                padding: 1.4rem;
+            }
+        }
+
+        /* Efecto de brillo en el título */
+        .shine-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .shine-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20%, 100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header estilo Trance -->
+    <header class="trance-header">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <h1 class="trance-animate shine-effect">TRANCE</h1>
+            <p class="trance-animate delay-1">El viaje musical que transporta el alma a través de melodías celestiales</p>
+            <div class="trance-visualizer">
+                <div class="trance-bar" style="--i:0"></div>
+                <div class="trance-bar" style="--i:1"></div>
+                <div class="trance-bar" style="--i:2"></div>
+                <div class="trance-bar" style="--i:3"></div>
+                <div class="trance-bar" style="--i:4"></div>
+                <div class="trance-bar" style="--i:5"></div>
+                <div class="trance-bar" style="--i:6"></div>
+                <div class="trance-bar" style="--i:7"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav estilo Trance -->
+    <nav class="trance-nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#historia"><i class="fas fa-history"></i> Historia</a></li>
+                <li><a href="#pioneros"><i class="fas fa-star"></i> Pioneros</a></li>
+                <li><a href="#subgeneros"><i class="fas fa-music"></i> Subgéneros</a></li>
+                <li><a href="#video"><i class="fas fa-play"></i> Documental</a></li>
+                <li><a href="house.html"><i class="fas fa-music"></i> House</a></li>
+                <li><a href="techno.html"><i class="fas fa-robot"></i> Techno</a></li>
+                <li><a href="dubstep.html"><i class="fas fa-bolt"></i> Dubstep</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="trance-main">
+        <div class="container">
+            <!-- Sección de animación de colores -->
+            <section class="trance-color-section trance-animate delay-2">
+                <h2>EXPERIMENTA EL VIAJE TRANSCENDENTAL</h2>
+                <p>MELODÍAS ÉPICAS QUE ELEVAN EL ESPÍRITU</p>
+            </section>
+
+            <!-- Historia -->
+            <section id="historia" class="trance-section trance-animate">
+                <h2>Historia del Trance</h2>
+                <p>El trance es un género de música electrónica que surgió a principios de los años 90 en Alemania, combinando elementos del techno, house y música clásica. Se caracteriza por sus melodías emotivas, progresiones armónicas complejas, ritmos de 4/4 y builds & drops que crean una experiencia auditiva envolvente y emocional.</p>
+                
+                <div class="trance-timeline">
+                    <div class="trance-timeline-item trance-left">
+                        <div class="trance-timeline-content trance-animate">
+                            <h3>1988-1992: Los Orígenes</h3>
+                            <p>Influenciado por el acid house y el techno alemán, el trance emerge como un subgénero con artistas como Sven Väth y proyectos como Dance 2 Trance. El término "trance" se populariza con el éxito "We Came in Peace" de Dance 2 Trance en 1990.</p>
+                        </div>
+                    </div>
+                    <div class="trance-timeline-item trance-right">
+                        <div class="trance-timeline-content trance-animate delay-1">
+                            <h3>1993-1998: La Edad de Oro</h3>
+                            <p>Artistas como Paul van Dyk, BT y Ferry Corsten definen el sonido clásico del trance. Sellos como Hooj Choons y Platipus lanzan éxitos icónicos. El trance se convierte en el sonido dominante en las raves y clubes de Europa.</p>
+                        </div>
+                    </div>
+                    <div class="trance-timeline-item trance-left">
+                        <div class="trance-timeline-content trance-animate delay-2">
+                            <h3>1999-2004: Época Comercial</h3>
+                            <p>El trance alcanza popularidad masiva con DJs como Tiësto, Armin van Buuren y Above & Beyond. Festivales como Sensation White y Trance Energy atraen a decenas de miles de fanáticos. Surgen subgéneros como el uplifting trance y el vocal trance.</p>
+                        </div>
+                    </div>
+                    <div class="trance-timeline-item trance-right">
+                        <div class="trance-timeline-content trance-animate delay-3">
+                            <h3>2005-Presente: Evolución</h3>
+                            <p>El trance se diversifica en múltiples subgéneros como progressive trance, psytrance y tech trance. Festivales como A State of Trance y Dreamstate mantienen viva la escena. Artistas como Above & Beyond y Armin van Buuren continúan siendo figuras prominentes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pioneros -->
+            <section id="pioneros" class="trance-section">
+                <h2>Los Pioneros del Trance</h2>
+                <p>Estos artistas definieron el sonido del trance y llevaron el género a nuevas alturas:</p>
+                
+                <div class="trance-grid">
+                    <div class="trance-card trance-animate">
+                        <img src="images/Paul van Dyk.jpg" alt="Paul van Dyk">
+                        <div class="trance-card-content">
+                            <h3>Paul van Dyk</h3>
+                            <p>Considerado uno de los padres del trance moderno, su álbum "Seven Ways" de 1996 es un clásico del género. Conocido por sus sets en vivo y su habilidad para mezclar.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trance-card trance-animate delay-1">
+                        <img src="images/Tiësto.jpg" alt="Tiësto">
+                        <div class="trance-card-content">
+                            <h3>Tiësto</h3>
+                            <p>El DJ holandés que llevó el trance a las masas con álbumes como "In My Memory" y su legendario set en los Juegos Olímpicos de Atenas 2004.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trance-card trance-animate delay-2">
+                        <img src="images/Armin van Buuren.jpg" alt="Armin van Buuren">
+                        <div class="trance-card-content">
+                            <h3>Armin van Buuren</h3>
+                            <p>Presentador del famoso show radial "A State of Trance", ha sido nombrado #1 en el Top 100 de DJs de DJ Mag múltiples veces.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subgéneros -->
+            <section id="subgeneros" class="trance-section">
+                <h2>Subgéneros del Trance</h2>
+                <p>El trance ha evolucionado en múltiples variantes que exploran diferentes atmósferas y emociones:</p>
+                
+                <div class="trance-grid">
+                    <div class="trance-card trance-animate">
+                        <img src="images/Uplifting Trance.gif" alt="Uplifting Trance">
+                        <div class="trance-card-content">
+                            <h3>Uplifting Trance</h3>
+                            <p>Caracterizado por melodías épicas, progresiones emocionales y drops poderosos. Artistas como Aly & Fila y The Thrillseekers son exponentes destacados.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trance-card trance-animate delay-1">
+                        <img src="images/Progressive Trance.gif" alt="Progressive Trance">
+                        <div class="trance-card-content">
+                            <h3>Progressive Trance</h3>
+                            <p>Un sonido más minimalista y atmosférico, con builds más largos y drops sutiles. Artistas como Above & Beyond y Andrew Bayer son representantes clave.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trance-card trance-animate delay-2">
+                        <img src="images/Psytrance.gif" alt="Psytrance">
+                        <div class="trance-card-content">
+                            <h3>Psytrance</h3>
+                            <p>Un subgénero más rápido (140-150 BPM) con influencias psicodélicas y patrones de bajo complejos. Artistas como Vini Vici e Infected Mushroom son figuras destacadas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video -->
+            <section id="video" class="trance-section">
+                <h2>Documental del Trance</h2>
+                <p>Embárcate en un viaje a través de la historia y evolución del trance con este documental:</p>
+                
+                <div class="trance-video-container">
+                    <iframe width="770" height="433" src="https://www.youtube.com/embed/008gNeUuBX4" title="Hablemos Del Trance y Su Origen" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Información personal estilo Trance -->
+            <section class="trance-personal-info trance-animate">
+                <h2>Información del Estudiante</h2>
+                <p><strong>Nombre completo:</strong> Enrique Davila Diaz</p>
+                <p><strong>Correo institucional:</strong> enrique.davila@alumnos.uacm.edu.mx</p>
+                <div class="location">
+                    <a href="https://www.google.com.mx/maps/place/UACM+Plantel+Casa+Libertad/@19.3669591,-98.9907456,15z/data=!4m6!3m5!1s0x85ce029fdbf99dd1:0xdea69e44b5e5cef!8m2!3d19.3576848!4d-99.0002355!16s%2Fg%2F1w112jmq?hl=es&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Ver ubicación de UACM Plantel Casa Libertad en Google Maps">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <span>UACM Plantel Casa Libertad</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer estilo Trance -->
+    <footer class="trance-footer">
+        <div class="container">
+            <p>EXPLORANDO MÚSICA ELECTRÓNICA - TRANCE</p>
+            <p>&copy; 2025 TODOS LOS DERECHOS RESERVADOS</p>
+            
+            <div class="trance-social-links">
+                <a href="https://www.facebook.com/trance" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/trance" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://soundcloud.com/trance" target="_blank"><i class="fab fa-soundcloud"></i></a>
+                <a href="https://www.instagram.com/trance/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.beatport.com/genre/trance/7" target="_blank"><i class="fas fa-compact-disc"></i></a>
+                <a href="https://www.mixcloud.com/trance/" target="_blank"><i class="fab fa-mixcloud"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.trance-animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+            
+            // Crear partículas flotantes
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamaño aleatorio entre 2px y 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posición inicial aleatoria
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Duración de animación aleatoria
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Retraso inicial aleatorio
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Efecto de sonido al pasar el ratón sobre las tarjetas
+            const hoverSounds = [
+                'https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3',
+                'https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3'
+            ];
+            
+            const cards = document.querySelectorAll('.trance-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const sound = new Audio(hoverSounds[Math.floor(Math.random() * hoverSounds.length)]);
+                    sound.volume = 0.3;
+                    sound.play();
+                    
+                    // Efecto de luz neón
+                    const neonEffect = document.createElement('div');
+                    neonEffect.style.position = 'absolute';
+                    neonEffect.style.top = '0';
+                    neonEffect.style.left = '0';
+                    neonEffect.style.width = '100%';
+                    neonEffect.style.height = '100%';
+                    neonEffect.style.boxShadow = `0 0 30px var(--neon-accent)`;
+                    neonEffect.style.opacity = '0';
+                    neonEffect.style.transition = 'opacity 0.3s ease';
+                    neonEffect.style.pointerEvents = 'none';
+                    neonEffect.style.borderRadius = '10px';
+                    card.appendChild(neonEffect);
+                    
+                    setTimeout(() => {
+                        neonEffect.style.opacity = '0.7';
+                        setTimeout(() => {
+                            neonEffect.style.opacity = '0';
+                            setTimeout(() => neonEffect.remove(), 300);
+                        }, 300);
+                    }, 10);
+                });
+            });
+            
+            // Efecto de pulsación en el visualizador de audio
+            const bars = document.querySelectorAll('.trance-bar');
+            
+            function animateBars() {
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 100) + 20;
+                    bar.style.height = `${randomHeight}px`;
+                    
+                    // Cambiar color aleatoriamente en tonos azules/morados
+                    const randomHue = Math.floor(Math.random() * 60) + 220;
+                    bar.style.background = `linear-gradient(to top, hsl(${randomHue}, 100%, 50%), var(--neon-accent)`;
+                });
+                
+                setTimeout(animateBars, 200);
+            }
+            
+            // Iniciar animación
+            animateBars();
+            
+            // Efecto de brillo aleatorio en el título
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const shineTitle = document.querySelector('.shine-effect');
+                    shineTitle.style.animation = 'none';
+                    void shineTitle.offsetWidth; // Trigger reflow
+                    shineTitle.style.animation = 'shine 3s';
+                }
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
